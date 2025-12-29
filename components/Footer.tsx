@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Linkedin, Twitter, Instagram, ArrowUp } from 'lucide-react';
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
+  const currentYear = 2026;
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
