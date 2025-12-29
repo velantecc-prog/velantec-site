@@ -2,9 +2,10 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import Link from 'next/link';
-import { ExternalLink, Mic, Sparkles, Users, ShoppingBag, ArrowRight } from 'lucide-react';
+import Image from 'next/image';
+import { ExternalLink, ArrowRight } from 'lucide-react';
 
 const brands = [
   {
@@ -12,7 +13,7 @@ const brands = [
     tagline: 'AI voice agents & IVR automation',
     description: 'Revolutionary AI-powered voice solutions for seamless customer interactions. Transforming how businesses communicate with their customers through intelligent automation.',
     url: 'https://mrassistant.ai',
-    icon: Mic,
+    logo: '/logos/mrassistant-logo.png',
     category: 'AI & Automation',
     color: '#64748b',
     bgColor: '#fafafa',
@@ -22,7 +23,7 @@ const brands = [
     tagline: 'Digital engagement experiences',
     description: 'Social and event engagement platform that connects communities. Creating memorable experiences that bring people together and foster meaningful connections.',
     url: 'https://buzzzbuzzz.com',
-    icon: Sparkles,
+    logo: '/logos/buzzzbuzzz-logo.png',
     category: 'Social & Events',
     color: '#78716c',
     bgColor: '#fafafa',
@@ -32,7 +33,7 @@ const brands = [
     tagline: 'Startup & founder community',
     description: 'Community for founders, investors, and startup professionals. Building the ecosystem that supports innovation and entrepreneurship in Singapore and beyond.',
     url: 'https://growthlab.sg',
-    icon: Users,
+    logo: '/logos/growthlab-logo.png',
     category: 'Community',
     color: '#6b7280',
     bgColor: '#fafafa',
@@ -42,7 +43,7 @@ const brands = [
     tagline: 'End-to-end ecommerce & services',
     description: 'One-stop platform for e-commerce and comprehensive services. Simplifying commerce and services for businesses and consumers in Singapore.',
     url: 'https://onestopsg.com',
-    icon: ShoppingBag,
+    logo: '/logos/onestopsg-logo.png',
     category: 'E-commerce',
     color: '#71717a',
     bgColor: '#fafafa',
@@ -134,7 +135,7 @@ export default function Portfolio({ showHeading = true, showButton = true }: Por
           }}
         >
           {brands.map((brand, index) => {
-            const Icon = brand.icon;
+            const [logoError, setLogoError] = useState(false);
             return (
               <motion.div
                 key={brand.name}
@@ -176,24 +177,66 @@ export default function Portfolio({ showHeading = true, showButton = true }: Por
                     />
                     <div className="flex items-start gap-8 mb-8 relative z-10" style={{ display: 'flex', alignItems: 'flex-start', gap: '2rem', marginBottom: '2rem', position: 'relative', zIndex: 10, width: '100%' }}>
                       <motion.div 
-                        className="w-20 h-20 rounded-lg flex items-center justify-center flex-shrink-0"
+                        className="flex items-center justify-center flex-shrink-0"
                         style={{
-                          width: '5rem',
-                          height: '5rem',
-                          borderRadius: '0.5rem',
-                          backgroundColor: brand.color,
+                          width: 'clamp(5rem, 8vw, 8rem)',
+                          height: 'clamp(5rem, 8vw, 8rem)',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          flexShrink: 0
+                          flexShrink: 0,
+                          backgroundColor: 'transparent',
+                          padding: '1rem'
                         }}
                         whileHover={{ 
-                          rotate: 360,
-                          scale: 1.15,
-                          transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
+                          scale: 1.1,
+                          transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] }
                         }}
                       >
-                        <Icon className="w-10 h-10 text-white" style={{ width: '2.5rem', height: '2.5rem', color: '#ffffff' }} />
+                        {!logoError ? (
+                          <div style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <Image
+                              src={brand.logo}
+                              alt={`${brand.name} logo`}
+                              width={120}
+                              height={120}
+                              style={{
+                                width: '100%',
+                                height: 'auto',
+                                objectFit: 'contain',
+                                maxWidth: '8rem',
+                                maxHeight: '8rem'
+                              }}
+                              className="group-hover:opacity-80 transition-opacity"
+                              onError={() => setLogoError(true)}
+                            />
+                          </div>
+                        ) : (
+                          <div 
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              backgroundColor: brand.bgColor,
+                              borderRadius: '0.5rem',
+                              padding: '1rem',
+                              minHeight: '5rem'
+                            }}
+                          >
+                            <span 
+                              style={{
+                                fontSize: '0.875rem',
+                                color: brand.color,
+                                fontWeight: 500,
+                                textAlign: 'center'
+                              }}
+                            >
+                              {brand.name}
+                            </span>
+                          </div>
+                        )}
                       </motion.div>
                       <div className="flex-1" style={{ flex: 1, width: '100%', minWidth: 0 }}>
                         <motion.span 
