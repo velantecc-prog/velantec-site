@@ -3,11 +3,6 @@ import Footer from '@/components/Footer';
 import Link from 'next/link';
 import { Home } from 'lucide-react';
 
-export const metadata = {
-  title: 'Terms & Conditions | VELANTEC',
-  description: 'VELANTEC Terms and Conditions - Terms of use for our website and services.',
-};
-
 export default function TermsPage() {
   return (
     <main className="min-h-screen">

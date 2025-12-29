@@ -31,7 +31,7 @@ export default function Footer() {
           }}
         >
           <div className="md:col-span-2" style={{ width: '100%' }}>
-            <h3 className="text-3xl font-bold text-black mb-6" style={{ fontSize: '1.875rem', fontWeight: 700, color: '#000000', marginBottom: '1.5rem', letterSpacing: '-0.02em' }}>VELANTEC</h3>
+            <h3 className="text-3xl font-bold text-black mb-6" style={{ fontSize: '1.875rem', fontWeight: 700, color: '#000000', marginBottom: '1.5rem', letterSpacing: '-0.02em', textTransform: 'uppercase', fontFamily: 'var(--font-inter), sans-serif' }}>VELANTEC</h3>
             <p className="text-base text-gray-600 font-light mb-8 max-w-md leading-relaxed" style={{ fontSize: '1rem', color: '#525252', fontWeight: 300, marginBottom: '2rem', maxWidth: '28rem', lineHeight: 1.75, letterSpacing: '0.01em' }}>
               Building tomorrow&apos;s digital brands with purpose. We create experiences, products and digital services that connect with people and generate real value.
             </p>

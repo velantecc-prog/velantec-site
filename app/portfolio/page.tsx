@@ -2,11 +2,6 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import Portfolio from '@/components/Portfolio';
 
-export const metadata = {
-  title: 'Portfolio | VELANTEC Brands',
-  description: 'Explore the innovative digital brands under VELANTEC: mrassistant.ai, buzzzbuzzz.com, growthlab.sg, and onestopsg.com.',
-};
-
 export default function PortfolioPage() {
   return (
     <main className="min-h-screen" style={{ minHeight: '100vh', width: '100%' }}>

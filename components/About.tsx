@@ -14,7 +14,7 @@ export default function About() {
     offset: ["start end", "end start"]
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [50, -50]);
+  const y = useTransform(scrollYProgress, [0, 1], [25, -25]);
   const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0.8]);
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 0.98]);
 
@@ -28,8 +28,8 @@ export default function About() {
       id="about" 
       className="py-32 md:py-48 bg-white border-t-2 border-black relative overflow-hidden"
       style={{ 
-        paddingTop: '10rem', 
-        paddingBottom: '10rem',
+        paddingTop: 'clamp(4rem, 10vw, 10rem)', 
+        paddingBottom: 'clamp(4rem, 10vw, 10rem)',
         backgroundColor: '#ffffff',
         borderTop: '2px solid #000000',
         width: '100%',
@@ -53,7 +53,7 @@ export default function About() {
       />
 
       <motion.div
-        style={{ y, opacity, scale, maxWidth: '80rem', margin: '0 auto', padding: '0 1.5rem', width: '100%' }}
+        style={{ y, opacity, scale, maxWidth: '80rem', margin: '0 auto', padding: '0 1rem', width: '100%' }}
       >
         <motion.div
           initial={{ opacity: 0 }}
@@ -64,10 +64,10 @@ export default function About() {
           <h2 
             className="text-5xl md:text-7xl lg:text-8xl font-bold text-black mb-16 tracking-tight leading-tight"
             style={{
-              fontSize: 'clamp(3rem, 8vw, 8rem)',
+              fontSize: 'clamp(2rem, 8vw, 8rem)',
               fontWeight: 700,
               color: '#000000',
-              marginBottom: '4rem',
+              marginBottom: 'clamp(2rem, 4vw, 4rem)',
               letterSpacing: '-0.03em',
               lineHeight: 1.05,
               width: '100%'
@@ -95,16 +95,16 @@ export default function About() {
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
             transition={{ delay: 0.6, duration: 1, ease: [0.22, 1, 0.36, 1] }}
             style={{
-              marginTop: '4rem',
+              marginTop: 'clamp(2rem, 4vw, 4rem)',
               display: 'flex',
               flexDirection: 'column',
-              gap: '2rem',
-              fontSize: 'clamp(1.125rem, 1.5vw, 1.375rem)',
+              gap: 'clamp(1rem, 2vw, 2rem)',
+              fontSize: 'clamp(1rem, 1.5vw, 1.375rem)',
               color: '#525252',
               fontWeight: 300,
               lineHeight: 1.85,
               maxWidth: '48rem',
-              marginBottom: '4rem',
+              marginBottom: 'clamp(2rem, 4vw, 4rem)',
               width: '100%',
               letterSpacing: '0.01em'
             }}
@@ -135,18 +135,19 @@ export default function About() {
                 href="/about"
                 className="group inline-flex items-center gap-3 px-10 py-5 text-base md:text-lg font-medium transition-all relative overflow-hidden"
                 style={{
-                  fontSize: '1.125rem',
+                  fontSize: 'clamp(1rem, 2vw, 1.125rem)',
                   fontWeight: 500,
                   textDecoration: 'none',
                   transition: 'all 0.4s cubic-bezier(0.22, 1, 0.36, 1)',
                   position: 'relative',
-                  padding: '1.25rem 2.5rem',
+                  padding: 'clamp(1rem, 2vw, 1.25rem) clamp(2rem, 4vw, 2.5rem)',
                   border: '2px solid #000000',
                   backgroundColor: 'transparent',
                   display: 'inline-flex',
                   alignItems: 'center',
                   color: '#000000',
-                  borderRadius: '0'
+                  borderRadius: '0',
+                  minHeight: '48px'
                 }}
               >
                 <motion.span

@@ -16,6 +16,9 @@ export default function Navigation() {
     };
     const handleResize = () => {
       setIsDesktop(window.innerWidth >= 768);
+      if (window.innerWidth >= 768) {
+        setIsMobileMenuOpen(false);
+      }
     };
     
     handleResize();
@@ -70,14 +73,14 @@ export default function Navigation() {
         <div style={{ 
           maxWidth: '80rem', 
           margin: '0 auto', 
-          padding: '0 1.5rem', 
+          padding: '0 1rem',
           width: '100%' 
         }}>
           <div style={{ 
             display: 'flex', 
             alignItems: 'center', 
             justifyContent: 'space-between', 
-            height: '5rem', 
+            height: '4rem',
             width: '100%' 
           }}>
             <motion.div
@@ -87,12 +90,14 @@ export default function Navigation() {
               <Link 
                 href="/" 
                 style={{
-                  fontSize: '1.25rem',
+                  fontSize: 'clamp(1rem, 4vw, 1.25rem)',
                   fontWeight: 700,
                   color: '#000000',
                   letterSpacing: '-0.02em',
                   textDecoration: 'none',
-                  transition: 'opacity 0.3s ease'
+                  transition: 'opacity 0.3s ease',
+                  fontFamily: 'var(--font-inter), sans-serif',
+                  textTransform: 'uppercase'
                 }}
                 onMouseEnter={(e) => e.currentTarget.style.opacity = '0.7'}
                 onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
@@ -107,7 +112,7 @@ export default function Navigation() {
               style={{
                 display: isDesktop ? 'flex' : 'none',
                 alignItems: 'center',
-                gap: '2.5rem'
+                gap: 'clamp(1.5rem, 3vw, 2.5rem)'
               }}
             >
               {navItems.map((item, index) => (
@@ -122,7 +127,7 @@ export default function Navigation() {
                     onClick={(e) => handleSmoothScroll(e, item.href)}
                     className="group relative"
                     style={{
-                      fontSize: '0.875rem',
+                      fontSize: 'clamp(0.75rem, 1.5vw, 0.875rem)',
                       fontWeight: 300,
                       color: '#000000',
                       textDecoration: 'none',
@@ -159,13 +164,17 @@ export default function Navigation() {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               style={{
-                display: isDesktop ? 'none' : 'block',
+                display: isDesktop ? 'none' : 'flex',
                 color: '#000000',
                 background: 'none',
                 border: 'none',
                 cursor: 'pointer',
                 padding: '0.5rem',
-                lineHeight: 0
+                lineHeight: 0,
+                minWidth: '44px',
+                minHeight: '44px',
+                alignItems: 'center',
+                justifyContent: 'center'
               }}
             >
               <AnimatePresence mode="wait">
@@ -206,21 +215,23 @@ export default function Navigation() {
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             style={{
               position: 'fixed',
-              top: '5rem',
+              top: '4rem',
               left: 0,
               right: 0,
               backgroundColor: '#ffffff',
               zIndex: 40,
               borderBottom: '2px solid #000000',
               width: '100%',
-              overflow: 'hidden'
+              overflow: 'hidden',
+              maxHeight: 'calc(100vh - 4rem)',
+              overflowY: 'auto'
             }}
           >
             <div style={{ 
               display: 'flex', 
               flexDirection: 'column', 
-              padding: '2rem 1.5rem', 
-              gap: '1.5rem' 
+              padding: '1.5rem 1rem', 
+              gap: '1rem' 
             }}>
               {navItems.map((item, index) => (
                 <motion.div
@@ -233,13 +244,15 @@ export default function Navigation() {
                     href={item.href}
                     onClick={(e) => handleSmoothScroll(e, item.href)}
                     style={{
-                      fontSize: '1rem',
+                      fontSize: '1.125rem',
                       fontWeight: 300,
                       color: '#000000',
                       textDecoration: 'none',
                       transition: 'opacity 0.2s ease',
-                      display: 'block',
-                      padding: '0.5rem 0'
+                      display: 'flex',
+                      alignItems: 'center',
+                      padding: '0.75rem 0',
+                      minHeight: '44px'
                     }}
                     onMouseEnter={(e) => e.currentTarget.style.opacity = '0.7'}
                     onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
@@ -252,6 +265,26 @@ export default function Navigation() {
           </motion.div>
         )}
       </AnimatePresence>
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          @media (min-width: 768px) {
+            nav > div > div > div[class*="desktop-nav"] {
+              display: flex !important;
+            }
+            nav > div > div > button[class*="mobile-menu-btn"] {
+              display: none !important;
+            }
+          }
+          @media (max-width: 767px) {
+            nav > div > div > div[class*="desktop-nav"] {
+              display: none !important;
+            }
+            nav > div > div > button[class*="mobile-menu-btn"] {
+              display: flex !important;
+            }
+          }
+        `
+      }} />
     </>
   );
 }

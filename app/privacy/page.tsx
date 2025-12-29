@@ -3,11 +3,6 @@ import Footer from '@/components/Footer';
 import Link from 'next/link';
 import { Home } from 'lucide-react';
 
-export const metadata = {
-  title: 'Privacy Policy | VELANTEC',
-  description: 'VELANTEC Privacy Policy - How we collect, use, and protect your personal information.',
-};
-
 export default function PrivacyPage() {
   return (
     <main className="min-h-screen">

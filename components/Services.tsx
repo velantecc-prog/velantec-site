@@ -40,7 +40,7 @@ export default function Services() {
     offset: ["start end", "end start"]
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [60, -60]);
+  const y = useTransform(scrollYProgress, [0, 1], [30, -30]);
   const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0.8]);
 
   // Split heading into words
@@ -53,8 +53,8 @@ export default function Services() {
       id="services" 
       className="py-32 md:py-48 bg-white border-t-2 border-black relative overflow-hidden"
       style={{ 
-        paddingTop: '10rem', 
-        paddingBottom: '10rem',
+        paddingTop: 'clamp(4rem, 10vw, 10rem)', 
+        paddingBottom: 'clamp(4rem, 10vw, 10rem)',
         backgroundColor: '#ffffff',
         borderTop: '2px solid #000000',
         width: '100%',
@@ -62,21 +62,21 @@ export default function Services() {
       }}
     >
       <motion.div
-        style={{ y, opacity, maxWidth: '80rem', margin: '0 auto', padding: '0 1.5rem', width: '100%' }}
+        style={{ y, opacity, maxWidth: '80rem', margin: '0 auto', padding: '0 1rem', width: '100%' }}
       >
         <motion.div
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : { opacity: 0 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          style={{ marginBottom: '6rem', maxWidth: '64rem', width: '100%' }}
+          style={{ marginBottom: 'clamp(3rem, 6vw, 6rem)', maxWidth: '64rem', width: '100%' }}
         >
           <h2 
             className="text-5xl md:text-7xl lg:text-8xl font-bold text-black mb-12 tracking-tight leading-tight"
             style={{
-              fontSize: 'clamp(3rem, 8vw, 8rem)',
+              fontSize: 'clamp(2rem, 8vw, 8rem)',
               fontWeight: 700,
               color: '#000000',
-              marginBottom: '3rem',
+              marginBottom: 'clamp(2rem, 3vw, 3rem)',
               letterSpacing: '-0.03em',
               lineHeight: 1.05,
               width: '100%'
@@ -128,7 +128,7 @@ export default function Services() {
                 <div 
                   className="py-12 border-b-2 border-black transition-all hover:bg-gray-50 relative overflow-hidden"
                   style={{
-                    padding: '3rem 0',
+                    padding: 'clamp(2rem, 3vw, 3rem) 0',
                     borderBottom: '2px solid #000000',
                     transition: 'all 0.4s cubic-bezier(0.22, 1, 0.36, 1)',
                     backgroundColor: 'transparent',
@@ -144,7 +144,7 @@ export default function Services() {
                       transition: 'opacity 0.4s ease'
                     }}
                   />
-                  <div className="flex items-start gap-8 relative z-10" style={{ display: 'flex', alignItems: 'flex-start', gap: '2rem', position: 'relative', zIndex: 10 }}>
+                  <div className="flex flex-col sm:flex-row items-start gap-8 relative z-10" style={{ display: 'flex', alignItems: 'flex-start', gap: 'clamp(1rem, 2vw, 2rem)', position: 'relative', zIndex: 10 }}>
                     <motion.div 
                       className="mb-6 flex-shrink-0"
                       style={{ marginBottom: 0 }}
@@ -154,8 +154,8 @@ export default function Services() {
                       <div 
                         className="w-16 h-16 rounded-lg flex items-center justify-center transition-transform"
                         style={{
-                          width: '4rem',
-                          height: '4rem',
+                          width: 'clamp(3rem, 4vw, 4rem)',
+                          height: 'clamp(3rem, 4vw, 4rem)',
                           borderRadius: '0.5rem',
                           backgroundColor: service.color,
                           display: 'flex',
@@ -166,18 +166,18 @@ export default function Services() {
                       >
                         <Icon 
                           className="w-8 h-8 text-white" 
-                          style={{ width: '2rem', height: '2rem', color: '#ffffff' }}
+                          style={{ width: 'clamp(1.5rem, 2vw, 2rem)', height: 'clamp(1.5rem, 2vw, 2rem)', color: '#ffffff' }}
                         />
                       </div>
                     </motion.div>
-                    <div className="flex-1">
+                    <div className="flex-1" style={{ flex: 1, width: '100%', minWidth: 0 }}>
                       <motion.h3 
                         className="text-3xl font-bold text-black mb-4 tracking-tight"
                         initial={{ opacity: 0, x: -20 }}
                         animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
                         transition={{ delay: 0.7 + index * 0.15, duration: 0.6 }}
                         style={{
-                          fontSize: '1.875rem',
+                          fontSize: 'clamp(1.5rem, 3vw, 1.875rem)',
                           fontWeight: 700,
                           color: '#000000',
                           marginBottom: '1rem',
@@ -193,7 +193,7 @@ export default function Services() {
                         animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                         transition={{ delay: 0.9 + index * 0.15, duration: 0.6 }}
                         style={{
-                          fontSize: '1.125rem',
+                          fontSize: 'clamp(1rem, 1.5vw, 1.125rem)',
                           color: '#525252',
                           fontWeight: 300,
                           lineHeight: 1.75,

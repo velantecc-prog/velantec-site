@@ -1,32 +1,42 @@
 'use client';
 
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowDown, ArrowRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 export default function Hero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isMobile, setIsMobile] = useState(false);
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 80]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
   const scale = useTransform(scrollY, [0, 500], [1, 0.95]);
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth - 0.5) * 30,
-        y: (e.clientY / window.innerHeight - 0.5) * 30,
-      });
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
     };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    
+    if (!isMobile) {
+      const handleMouseMove = (e: MouseEvent) => {
+        setMousePosition({
+          x: (e.clientX / window.innerWidth - 0.5) * 30,
+          y: (e.clientY / window.innerHeight - 0.5) * 30,
+        });
+      };
+      window.addEventListener('mousemove', handleMouseMove);
+      return () => window.removeEventListener('mousemove', handleMouseMove);
+    }
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isMobile]);
 
   const letters = 'VELANTEC'.split('');
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-white overflow-hidden" style={{ minHeight: '100vh', backgroundColor: '#ffffff', width: '100%' }}>
+    <section className="relative min-h-screen flex items-center justify-center bg-white overflow-hidden" style={{ minHeight: '100vh', backgroundColor: '#ffffff', width: '100%', paddingTop: '4rem' }}>
       {/* Animated background gradient */}
       <motion.div
         animate={{
@@ -55,7 +65,7 @@ export default function Hero() {
           scale,
           maxWidth: '80rem', 
           margin: '0 auto', 
-          padding: '0 1.5rem', 
+          padding: '0 1rem',
           width: '100%', 
           position: 'relative', 
           zIndex: 10 
@@ -70,24 +80,25 @@ export default function Hero() {
         >
           <motion.div
             style={{
-              transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`,
+              transform: isMobile ? 'none' : `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`,
               transition: 'transform 0.1s ease-out'
             }}
           >
             <h1
-              className="text-[120px] md:text-[180px] lg:text-[240px] font-bold text-black mb-8 tracking-tight leading-none"
+              className="font-bold text-black mb-8 tracking-tight leading-none"
               style={{ 
                 fontFamily: 'var(--font-inter), sans-serif',
-                fontSize: 'clamp(80px, 15vw, 240px)',
+                fontSize: 'clamp(3.5rem, 12vw, 12rem)',
                 fontWeight: 700,
                 color: '#000000',
                 letterSpacing: '-0.03em',
                 lineHeight: 1,
-                marginBottom: '3rem',
+                marginBottom: '2rem',
                 display: 'flex',
                 justifyContent: 'center',
-                gap: '0.02em',
-                flexWrap: 'wrap'
+                gap: 'clamp(0.01em, 0.5vw, 0.02em)',
+                flexWrap: 'wrap',
+                padding: '0 0.5rem'
               }}
             >
               {letters.map((letter, index) => (
@@ -112,15 +123,16 @@ export default function Hero() {
             initial={{ opacity: 0, y: 30, clipPath: 'inset(0 0 100% 0)' }}
             animate={{ opacity: 1, y: 0, clipPath: 'inset(0 0 0% 0)' }}
             transition={{ delay: 1.2, duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-            className="text-lg md:text-xl text-gray-600 mb-16 font-light max-w-2xl mx-auto leading-relaxed"
+            className="text-gray-600 mb-16 font-light max-w-2xl mx-auto leading-relaxed"
             style={{ 
-              fontSize: 'clamp(1.125rem, 1.5vw, 1.375rem)',
+              fontSize: 'clamp(1rem, 3vw, 1.375rem)',
               color: '#525252',
               fontWeight: 300,
               maxWidth: '42rem',
-              margin: '0 auto 5rem',
-              lineHeight: 1.8,
-              letterSpacing: '0.01em'
+              margin: '0 auto 3rem',
+              lineHeight: 1.75,
+              letterSpacing: '0.01em',
+              padding: '0 1rem'
             }}
           >
             Building Tomorrow&apos;s Digital Brands with Purpose. For now. For what&apos;s to come.
@@ -131,23 +143,31 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.5, duration: 1, ease: [0.22, 1, 0.36, 1] }}
             className="flex flex-col items-center gap-12"
-            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '3rem' }}
+            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2rem', padding: '0 1rem' }}
           >
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              style={{ width: '100%', maxWidth: '20rem' }}
             >
               <Link
                 href="/portfolio"
-                className="group inline-flex items-center gap-3 px-10 py-5 text-base md:text-lg text-black font-medium transition-all relative overflow-hidden"
+                className="group inline-flex items-center justify-center gap-3 w-full text-base md:text-lg text-black font-medium transition-all relative overflow-hidden"
                 style={{
-                  fontSize: '1.125rem',
+                  fontSize: 'clamp(1rem, 2vw, 1.125rem)',
                   color: '#000000',
                   fontWeight: 500,
                   textDecoration: 'none',
                   transition: 'all 0.4s cubic-bezier(0.22, 1, 0.36, 1)',
                   position: 'relative',
-                  padding: '1.25rem 2.5rem'
+                  padding: '1rem 2rem',
+                  border: '2px solid #000000',
+                  backgroundColor: 'transparent',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  minHeight: '48px',
+                  width: '100%'
                 }}
               >
                 <motion.span
@@ -157,12 +177,14 @@ export default function Hero() {
                   transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                   style={{ position: 'absolute', inset: 0, backgroundColor: '#000000', zIndex: 0 }}
                 />
-                <span className="relative z-10" style={{ color: '#ffffff', mixBlendMode: 'difference' }}>View projects</span>
+                <span className="relative z-10 group-hover:text-white transition-colors duration-300" style={{ color: '#000000' }}>
+                  View projects
+                </span>
                 <motion.span
-                  className="relative z-10"
+                  className="relative z-10 group-hover:text-white transition-colors duration-300"
                   animate={{ x: [0, 6, 0] }}
                   transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                  style={{ color: '#ffffff', mixBlendMode: 'difference' }}
+                  style={{ color: '#000000' }}
                 >
                   <ArrowRight className="w-5 h-5" style={{ width: '1.25rem', height: '1.25rem' }} />
                 </motion.span>
