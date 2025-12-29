@@ -103,40 +103,58 @@ function BrandCard({ brand, index, isInView }: BrandCardProps) {
               transition: 'opacity 0.4s ease'
             }}
           />
-          <div className="flex items-start gap-8 mb-8 relative z-10" style={{ display: 'flex', alignItems: 'flex-start', gap: '2rem', marginBottom: '2rem', position: 'relative', zIndex: 10, width: '100%' }}>
+          <div className="flex items-start gap-8 mb-8 relative z-10" style={{ display: 'flex', alignItems: 'flex-start', gap: 'clamp(1.5rem, 3vw, 2.5rem)', marginBottom: '2rem', position: 'relative', zIndex: 10, width: '100%' }}>
             <motion.div 
-              className="flex items-center justify-center flex-shrink-0"
+              className="flex items-center justify-center flex-shrink-0 logo-container"
               style={{
-                width: 'clamp(5rem, 8vw, 8rem)',
-                height: 'clamp(5rem, 8vw, 8rem)',
+                width: 'clamp(6rem, 10vw, 10rem)',
+                minWidth: '6rem',
+                maxWidth: '10rem',
+                height: 'clamp(6rem, 10vw, 10rem)',
+                minHeight: '6rem',
+                maxHeight: '10rem',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 flexShrink: 0,
                 backgroundColor: 'transparent',
-                padding: '1rem'
+                padding: 'clamp(0.75rem, 1.5vw, 1.25rem)',
+                position: 'relative'
               }}
               whileHover={{ 
-                scale: 1.1,
-                transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] }
+                scale: 1.05,
+                transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] }
               }}
             >
               {!logoError ? (
-                <div style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div 
+                  style={{ 
+                    position: 'relative', 
+                    width: '100%', 
+                    height: '100%', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center',
+                    maxWidth: '100%',
+                    maxHeight: '100%'
+                  }}
+                >
                   <Image
                     src={brand.logo}
                     alt={`${brand.name} logo`}
-                    width={120}
-                    height={120}
+                    width={160}
+                    height={160}
                     style={{
                       width: '100%',
-                      height: 'auto',
+                      height: '100%',
                       objectFit: 'contain',
-                      maxWidth: '8rem',
-                      maxHeight: '8rem'
+                      objectPosition: 'center',
+                      maxWidth: '100%',
+                      maxHeight: '100%'
                     }}
-                    className="group-hover:opacity-80 transition-opacity"
+                    className="brand-logo group-hover:opacity-90 transition-opacity duration-300"
                     onError={() => setLogoError(true)}
+                    priority={index < 2}
                   />
                 </div>
               ) : (
@@ -150,15 +168,16 @@ function BrandCard({ brand, index, isInView }: BrandCardProps) {
                     backgroundColor: brand.bgColor,
                     borderRadius: '0.5rem',
                     padding: '1rem',
-                    minHeight: '5rem'
+                    minHeight: '6rem'
                   }}
                 >
                   <span 
                     style={{
-                      fontSize: '0.875rem',
+                      fontSize: 'clamp(0.75rem, 1.5vw, 0.875rem)',
                       color: brand.color,
                       fontWeight: 500,
-                      textAlign: 'center'
+                      textAlign: 'center',
+                      lineHeight: 1.2
                     }}
                   >
                     {brand.name}
@@ -394,6 +413,26 @@ export default function Portfolio({ showHeading = true, showButton = true }: Por
           @media (min-width: 768px) {
             .portfolio-grid {
               grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            }
+          }
+          .logo-container {
+            aspect-ratio: 1 / 1;
+          }
+          .brand-logo {
+            filter: brightness(1);
+            transition: filter 0.3s ease, transform 0.3s ease;
+          }
+          .brand-logo:hover {
+            filter: brightness(0.95);
+          }
+          @media (max-width: 640px) {
+            .logo-container {
+              width: 5rem !important;
+              height: 5rem !important;
+              min-width: 5rem !important;
+              min-height: 5rem !important;
+              max-width: 5rem !important;
+              max-height: 5rem !important;
             }
           }
         `
