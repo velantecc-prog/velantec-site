@@ -55,6 +55,207 @@ interface PortfolioProps {
   showButton?: boolean;
 }
 
+interface BrandCardProps {
+  brand: typeof brands[0];
+  index: number;
+  isInView: boolean;
+}
+
+function BrandCard({ brand, index, isInView }: BrandCardProps) {
+  const [logoError, setLogoError] = useState(false);
+
+  return (
+    <motion.div
+      key={brand.name}
+      initial={{ opacity: 0, y: 100, rotateY: index % 2 === 0 ? -15 : 15 }}
+      animate={isInView ? { opacity: 1, y: 0, rotateY: 0 } : { opacity: 0, y: 100, rotateY: index % 2 === 0 ? -15 : 15 }}
+      transition={{ 
+        delay: 0.5 + index * 0.2, 
+        duration: 1, 
+        ease: [0.22, 1, 0.36, 1] 
+      }}
+      style={{ width: '100%', transformStyle: 'preserve-3d' }}
+      whileHover={{ y: -20, transition: { duration: 0.4 } }}
+    >
+      <Link
+        href={brand.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group block"
+        style={{ textDecoration: 'none', color: 'inherit', width: '100%' }}
+      >
+        <div 
+          className="py-16 border-b-2 border-black transition-all hover:bg-gray-50 relative overflow-hidden"
+          style={{
+            backgroundColor: 'transparent',
+            borderBottom: '2px solid #000000',
+            transition: 'all 0.4s cubic-bezier(0.22, 1, 0.36, 1)',
+            width: '100%',
+            padding: '4rem 0',
+            position: 'relative'
+          }}
+        >
+          <motion.div
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-black to-transparent opacity-0 group-hover:opacity-5 transition-opacity"
+            style={{
+              position: 'absolute',
+              inset: 0,
+              transition: 'opacity 0.4s ease'
+            }}
+          />
+          <div className="flex items-start gap-8 mb-8 relative z-10" style={{ display: 'flex', alignItems: 'flex-start', gap: '2rem', marginBottom: '2rem', position: 'relative', zIndex: 10, width: '100%' }}>
+            <motion.div 
+              className="flex items-center justify-center flex-shrink-0"
+              style={{
+                width: 'clamp(5rem, 8vw, 8rem)',
+                height: 'clamp(5rem, 8vw, 8rem)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0,
+                backgroundColor: 'transparent',
+                padding: '1rem'
+              }}
+              whileHover={{ 
+                scale: 1.1,
+                transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] }
+              }}
+            >
+              {!logoError ? (
+                <div style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Image
+                    src={brand.logo}
+                    alt={`${brand.name} logo`}
+                    width={120}
+                    height={120}
+                    style={{
+                      width: '100%',
+                      height: 'auto',
+                      objectFit: 'contain',
+                      maxWidth: '8rem',
+                      maxHeight: '8rem'
+                    }}
+                    className="group-hover:opacity-80 transition-opacity"
+                    onError={() => setLogoError(true)}
+                  />
+                </div>
+              ) : (
+                <div 
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: brand.bgColor,
+                    borderRadius: '0.5rem',
+                    padding: '1rem',
+                    minHeight: '5rem'
+                  }}
+                >
+                  <span 
+                    style={{
+                      fontSize: '0.875rem',
+                      color: brand.color,
+                      fontWeight: 500,
+                      textAlign: 'center'
+                    }}
+                  >
+                    {brand.name}
+                  </span>
+                </div>
+              )}
+            </motion.div>
+            <div className="flex-1" style={{ flex: 1, width: '100%', minWidth: 0 }}>
+              <motion.span 
+                className="text-xs text-gray-500 font-medium uppercase tracking-widest mb-4 block"
+                initial={{ opacity: 0, x: -20 }}
+                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+                transition={{ delay: 0.7 + index * 0.2, duration: 0.6 }}
+                style={{
+                  fontSize: '0.75rem',
+                  color: brand.color,
+                  fontWeight: 500,
+                  letterSpacing: '0.1em',
+                  marginBottom: '1rem',
+                  display: 'block'
+                }}
+              >
+                {brand.category}
+              </motion.span>
+              <motion.h3 
+                className="text-4xl md:text-5xl font-bold text-black mb-4 tracking-tight"
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ delay: 0.9 + index * 0.2, duration: 0.6 }}
+                style={{
+                  fontSize: 'clamp(2rem, 4vw, 3rem)',
+                  fontWeight: 700,
+                  color: '#000000',
+                  marginBottom: '1rem',
+                  letterSpacing: '-0.03em',
+                  lineHeight: 1.1,
+                  width: '100%'
+                }}
+              >
+                {brand.name}
+              </motion.h3>
+              <motion.p 
+                className="text-xl text-gray-600 mb-6 font-light"
+                initial={{ opacity: 0 }}
+                animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+                transition={{ delay: 1.1 + index * 0.2, duration: 0.6 }}
+                style={{
+                  fontSize: '1.25rem',
+                  color: '#525252',
+                  marginBottom: '1.5rem',
+                  fontWeight: 300,
+                  letterSpacing: '0.01em',
+                  width: '100%'
+                }}
+              >
+                {brand.tagline}
+              </motion.p>
+              <motion.p 
+                className="text-base text-gray-500 font-light leading-relaxed mb-8"
+                initial={{ opacity: 0 }}
+                animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+                transition={{ delay: 1.3 + index * 0.2, duration: 0.6 }}
+                style={{
+                  fontSize: '1rem',
+                  color: '#737373',
+                  fontWeight: 300,
+                  lineHeight: 1.8,
+                  marginBottom: '2rem',
+                  letterSpacing: '0.01em',
+                  width: '100%'
+                }}
+              >
+                {brand.description}
+              </motion.p>
+              <motion.div 
+                className="flex items-center text-black font-medium group-hover:gap-3 transition-all"
+                initial={{ opacity: 0, x: -20 }}
+                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+                transition={{ delay: 1.5 + index * 0.2, duration: 0.6 }}
+                style={{ width: '100%' }}
+              >
+                <span>Visit Site</span>
+                <motion.span
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <ExternalLink className="w-5 h-5 ml-2" style={{ width: '1.25rem', height: '1.25rem' }} />
+                </motion.span>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </Link>
+    </motion.div>
+  );
+}
+
 export default function Portfolio({ showHeading = true, showButton = true }: PortfolioProps = {}) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
@@ -134,199 +335,9 @@ export default function Portfolio({ showHeading = true, showButton = true }: Por
             width: '100%'
           }}
         >
-          {brands.map((brand, index) => {
-            const [logoError, setLogoError] = useState(false);
-            return (
-              <motion.div
-                key={brand.name}
-                initial={{ opacity: 0, y: 100, rotateY: index % 2 === 0 ? -15 : 15 }}
-                animate={isInView ? { opacity: 1, y: 0, rotateY: 0 } : { opacity: 0, y: 100, rotateY: index % 2 === 0 ? -15 : 15 }}
-                transition={{ 
-                  delay: 0.5 + index * 0.2, 
-                  duration: 1, 
-                  ease: [0.22, 1, 0.36, 1] 
-                }}
-                style={{ width: '100%', transformStyle: 'preserve-3d' }}
-                whileHover={{ y: -20, transition: { duration: 0.4 } }}
-              >
-                <Link
-                  href={brand.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group block"
-                  style={{ textDecoration: 'none', color: 'inherit', width: '100%' }}
-                >
-                  <div 
-                    className="py-16 border-b-2 border-black transition-all hover:bg-gray-50 relative overflow-hidden"
-                    style={{
-                      backgroundColor: 'transparent',
-                      borderBottom: '2px solid #000000',
-                      transition: 'all 0.4s cubic-bezier(0.22, 1, 0.36, 1)',
-                      width: '100%',
-                      padding: '4rem 0',
-                      position: 'relative'
-                    }}
-                  >
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-transparent via-black to-transparent opacity-0 group-hover:opacity-5 transition-opacity"
-                      style={{
-                        position: 'absolute',
-                        inset: 0,
-                        transition: 'opacity 0.4s ease'
-                      }}
-                    />
-                    <div className="flex items-start gap-8 mb-8 relative z-10" style={{ display: 'flex', alignItems: 'flex-start', gap: '2rem', marginBottom: '2rem', position: 'relative', zIndex: 10, width: '100%' }}>
-                      <motion.div 
-                        className="flex items-center justify-center flex-shrink-0"
-                        style={{
-                          width: 'clamp(5rem, 8vw, 8rem)',
-                          height: 'clamp(5rem, 8vw, 8rem)',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          flexShrink: 0,
-                          backgroundColor: 'transparent',
-                          padding: '1rem'
-                        }}
-                        whileHover={{ 
-                          scale: 1.1,
-                          transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] }
-                        }}
-                      >
-                        {!logoError ? (
-                          <div style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                            <Image
-                              src={brand.logo}
-                              alt={`${brand.name} logo`}
-                              width={120}
-                              height={120}
-                              style={{
-                                width: '100%',
-                                height: 'auto',
-                                objectFit: 'contain',
-                                maxWidth: '8rem',
-                                maxHeight: '8rem'
-                              }}
-                              className="group-hover:opacity-80 transition-opacity"
-                              onError={() => setLogoError(true)}
-                            />
-                          </div>
-                        ) : (
-                          <div 
-                            style={{
-                              width: '100%',
-                              height: '100%',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              backgroundColor: brand.bgColor,
-                              borderRadius: '0.5rem',
-                              padding: '1rem',
-                              minHeight: '5rem'
-                            }}
-                          >
-                            <span 
-                              style={{
-                                fontSize: '0.875rem',
-                                color: brand.color,
-                                fontWeight: 500,
-                                textAlign: 'center'
-                              }}
-                            >
-                              {brand.name}
-                            </span>
-                          </div>
-                        )}
-                      </motion.div>
-                      <div className="flex-1" style={{ flex: 1, width: '100%', minWidth: 0 }}>
-                        <motion.span 
-                          className="text-xs text-gray-500 font-medium uppercase tracking-widest mb-4 block"
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-                          transition={{ delay: 0.7 + index * 0.2, duration: 0.6 }}
-                          style={{
-                            fontSize: '0.75rem',
-                            color: brand.color,
-                            fontWeight: 500,
-                            letterSpacing: '0.1em',
-                            marginBottom: '1rem',
-                            display: 'block'
-                          }}
-                        >
-                          {brand.category}
-                        </motion.span>
-                        <motion.h3 
-                          className="text-4xl md:text-5xl font-bold text-black mb-4 tracking-tight"
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                          transition={{ delay: 0.9 + index * 0.2, duration: 0.6 }}
-                          style={{
-                            fontSize: 'clamp(2rem, 4vw, 3rem)',
-                            fontWeight: 700,
-                            color: '#000000',
-                            marginBottom: '1rem',
-                            letterSpacing: '-0.03em',
-                            lineHeight: 1.1,
-                            width: '100%'
-                          }}
-                        >
-                          {brand.name}
-                        </motion.h3>
-                        <motion.p 
-                          className="text-xl text-gray-600 mb-6 font-light"
-                          initial={{ opacity: 0 }}
-                          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-                          transition={{ delay: 1.1 + index * 0.2, duration: 0.6 }}
-                          style={{
-                            fontSize: '1.25rem',
-                            color: '#525252',
-                            marginBottom: '1.5rem',
-                            fontWeight: 300,
-                            letterSpacing: '0.01em',
-                            width: '100%'
-                          }}
-                        >
-                          {brand.tagline}
-                        </motion.p>
-                        <motion.p 
-                          className="text-base text-gray-500 font-light leading-relaxed mb-8"
-                          initial={{ opacity: 0 }}
-                          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-                          transition={{ delay: 1.3 + index * 0.2, duration: 0.6 }}
-                          style={{
-                            fontSize: '1rem',
-                            color: '#737373',
-                            fontWeight: 300,
-                            lineHeight: 1.8,
-                            marginBottom: '2rem',
-                            letterSpacing: '0.01em',
-                            width: '100%'
-                          }}
-                        >
-                          {brand.description}
-                        </motion.p>
-                        <motion.div 
-                          className="flex items-center text-black font-medium group-hover:gap-3 transition-all"
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-                          transition={{ delay: 1.5 + index * 0.2, duration: 0.6 }}
-                          style={{ width: '100%' }}
-                        >
-                          <span>Visit Site</span>
-                          <motion.span
-                            animate={{ x: [0, 5, 0] }}
-                            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                          >
-                            <ExternalLink className="w-5 h-5 ml-2" style={{ width: '1.25rem', height: '1.25rem' }} />
-                          </motion.span>
-                        </motion.div>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              </motion.div>
-            );
-          })}
+          {brands.map((brand, index) => (
+            <BrandCard key={brand.name} brand={brand} index={index} isInView={isInView} />
+          ))}
         </div>
 
         {showButton && (
