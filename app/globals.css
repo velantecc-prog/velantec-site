@@ -2,25 +2,317 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #000000;
+  /* Elegant color palette */
+  --primary: #1a1a1a;
+  --secondary: #4a4a4a;
+  --accent: #6b7280;
+  --accent-light: #e5e7eb;
+  --accent-blue: #64748b;
+  --accent-purple: #7c7c7c;
+  --accent-green: #6b7280;
+  --accent-orange: #78716c;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+  height: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--background) !important;
+  color: var(--foreground) !important;
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 300;
+  line-height: 1.6;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Enhanced Typography */
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 700 !important;
+    letter-spacing: -0.03em !important;
+    line-height: 1.05 !important;
+    color: #000000 !important;
+  }
+
+  p, span, a, li, button, label {
+    font-weight: 300;
+    letter-spacing: 0.01em;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+/* Smooth scroll behavior */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Elegant scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #000;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #333;
+}
+
+/* Selection styling */
+::selection {
+  background: #000;
+  color: #fff;
+}
+
+::-moz-selection {
+  background: #000;
+  color: #fff;
+}
+
+/* Focus styles for accessibility */
+*:focus-visible {
+  outline: 2px solid #000;
+  outline-offset: 2px;
+}
+
+/* Smooth transitions */
+a, button {
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Ensure proper text rendering */
+.text-black {
+  color: #000000 !important;
+}
+
+.text-white {
+  color: #ffffff !important;
+}
+
+.bg-white {
+  background-color: #ffffff !important;
+}
+
+.bg-black {
+  background-color: #000000 !important;
+}
+
+/* Border utilities */
+.border-black {
+  border-color: #000000 !important;
+}
+
+.border-t-2 {
+  border-top-width: 2px !important;
+}
+
+.border-b-2 {
+  border-bottom-width: 2px !important;
+}
+
+/* Font weight utilities */
+.font-bold {
+  font-weight: 700 !important;
+}
+
+.font-light {
+  font-weight: 300 !important;
+}
+
+.font-medium {
+  font-weight: 500 !important;
+}
+
+/* Ensure proper spacing */
+section {
+  display: block;
+  width: 100%;
+  position: relative;
+}
+
+/* Fix for container alignment */
+.max-w-7xl {
+  max-width: 80rem !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.max-w-5xl {
+  max-width: 64rem !important;
+}
+
+.max-w-3xl {
+  max-width: 48rem !important;
+}
+
+.max-w-2xl {
+  max-width: 42rem !important;
+}
+
+/* Grid fixes */
+.grid {
+  display: grid !important;
+}
+
+/* Flexbox fixes */
+.flex {
+  display: flex !important;
+}
+
+/* Ensure visibility */
+.visible {
+  visibility: visible !important;
+}
+
+.opacity-0 {
+  opacity: 0;
+}
+
+.opacity-100 {
+  opacity: 1;
+}
+
+/* Responsive grid utilities */
+@media (min-width: 768px) {
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  }
+  .lg\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+/* Ensure sections are visible */
+section {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Container alignment */
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+/* Smooth page transitions */
+main {
+  position: relative;
+  width: 100%;
+}
+
+/* Performance optimizations */
+* {
+  will-change: auto;
+}
+
+/* Elegant animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Prevent layout shift */
+img, video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Professional hover effects */
+.hover-lift {
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+/* Enhanced button styles */
+button, .btn {
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+button:hover, .btn:hover {
+  transform: translateY(-1px);
+}
+
+button:active, .btn:active {
+  transform: translateY(0);
 }

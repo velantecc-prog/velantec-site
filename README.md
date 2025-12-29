@@ -1,36 +1,161 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# VELANTEC Corporate Website
+
+A modern, professional website for VELANTEC, the parent company for multiple innovative digital brands.
+
+## Overview
+
+This website showcases VELANTEC as a sophisticated parent company and provides clear navigation to subsidiary brands:
+- **mrassistant.ai** - AI voice agents & IVR automation
+- **buzzzbuzzz.com** - Digital engagement experiences
+- **growthlab.sg** - Startup & founder community
+- **onestopsg.com** - End-to-end ecommerce & services
+
+## Features
+
+- ✨ Modern, minimal design inspired by boutique studio aesthetics
+- 📱 Fully responsive for desktop, tablet, and mobile
+- 🎨 Smooth animations and transitions using Framer Motion
+- 🚀 Built with Next.js 16, TypeScript, and Tailwind CSS
+- ♿ Accessible and SEO-optimized
+- 🎯 Smooth scroll navigation with sticky header
+
+## Tech Stack
+
+- **Framework**: Next.js 16 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18+ 
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd velantec-website
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Run the development server:
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+velantec-website/
+├── app/
+│   ├── about/          # About page
+│   ├── contact/        # Contact page
+│   ├── portfolio/      # Portfolio page
+│   ├── privacy/        # Privacy policy page
+│   ├── terms/          # Terms & conditions page
+│   ├── layout.tsx      # Root layout with metadata
+│   ├── page.tsx        # Homepage
+│   ├── not-found.tsx   # 404 page
+│   └── globals.css     # Global styles
+├── components/
+│   ├── Navigation.tsx  # Sticky navigation header
+│   ├── Hero.tsx        # Hero section
+│   ├── About.tsx       # About section
+│   ├── Portfolio.tsx   # Portfolio/Brands section
+│   ├── Vision.tsx      # Vision & Values section
+│   ├── Contact.tsx     # Contact section
+│   └── Footer.tsx      # Footer component
+└── public/             # Static assets
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Vercel (Recommended)
 
-## Deploy on Vercel
+1. Push your code to GitHub/GitLab/Bitbucket
+2. Import your repository in [Vercel](https://vercel.com)
+3. Vercel will automatically detect Next.js and configure the build
+4. Deploy!
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Other Platforms
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The site can be deployed to any platform that supports Next.js:
+
+- **Netlify**: Connect your repository and set build command to `npm run build`
+- **AWS Amplify**: Connect repository and configure build settings
+- **Docker**: Build and deploy using the included Dockerfile (if created)
+
+### Build for Production
+
+```bash
+npm run build
+npm start
+```
+
+## Customization
+
+### Updating Brand Information
+
+Edit the `brands` array in `components/Portfolio.tsx` to update brand details.
+
+### Changing Colors
+
+Modify Tailwind classes in components or update the color scheme in `tailwind.config.js` (if using custom config).
+
+### Adding New Pages
+
+1. Create a new folder in `app/` directory
+2. Add a `page.tsx` file
+3. Include Navigation and Footer components
+4. Add route to Navigation component
+
+## Content Management
+
+Currently, content is managed directly in the component files. For a CMS integration, consider:
+
+- **Contentful**: Headless CMS
+- **Sanity**: Real-time collaborative CMS
+- **Strapi**: Open-source headless CMS
+- **Markdown files**: Simple markdown-based content
+
+## SEO
+
+The site includes:
+- Meta titles and descriptions
+- Open Graph tags
+- Semantic HTML
+- Proper heading hierarchy
+- Alt text for images (add when images are included)
+
+## Performance
+
+- Optimized images (when using Next.js Image component)
+- Code splitting with Next.js
+- Lazy loading for animations
+- Minimal JavaScript bundle
+
+## Browser Support
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+
+## License
+
+Copyright © 2024 VELANTEC. All rights reserved.
+
+## Contact
+
+For questions or support, contact: hello@velantec.com
